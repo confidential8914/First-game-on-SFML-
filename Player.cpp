@@ -19,7 +19,9 @@ SetConsoleTextAttribute(hConsoleHandle, 10);
 
 PLAYER::PLAYER()
 {	
-	Speed = 1.5;
+	Speed    = 1.5;
+	SizeJump = 0.5;
+	
 	AOG = 0.0005;
 
     SizeX = 75; 
@@ -29,7 +31,7 @@ PLAYER::PLAYER()
 	
 	TPlayer.loadFromFile("Spritse\\sprite.png");
 	sprite.setTexture(TPlayer);
-	sprite.setTextureRect(IntRect(90, 650, SizeX, SizeY - 10));
+	sprite.setTextureRect(IntRect(90, 650, SizeX, SizeY - 12));
 	sprite.setPosition(100, SizeWindowY - 100);
 }
 	
@@ -74,8 +76,8 @@ void PLAYER::GravityAndMotion()
 			if(NumberFrame > VFrame)
 				NumberFrame -= VFrame;	
 				
-			if(x > 0) sprite.setTextureRect(IntRect(85 + (80 * int(NumberFrame)),      10,  SizeX, SizeY));	
-			if(x < 0) sprite.setTextureRect(IntRect(85 + (80 * int(NumberFrame) + 80), 10, -SizeX, SizeY));
+			if(x > 0) sprite.setTextureRect(IntRect(82 + (80 * int(NumberFrame)),      7,  SizeX, SizeY));	
+			if(x < 0) sprite.setTextureRect(IntRect(82 + (80 * int(NumberFrame) + 80), 7, -SizeX, SizeY));
 		}
 		else
 		{
@@ -126,8 +128,8 @@ void PLAYER::Control()
 		
 	if(Keyboard::isKeyPressed(Keyboard::Up))
 		if(onGround)
-		{
-			y =-0.4;
+		{	
+			y =- SizeJump;
 			onGround = false;
 		}		
 	
@@ -137,8 +139,8 @@ void PLAYER::Control()
 		
 		switch(OldVector)
 		{
-			case 'L': sprite.setTextureRect(IntRect(90 + 80, 650, -SizeX, SizeY - 10)); break;
-			case 'R': sprite.setTextureRect(IntRect(90,      650,  SizeX, SizeY - 10)); break;		
+			case 'L': sprite.setTextureRect(IntRect(90 + 80, 650, -SizeX, SizeY - 12)); break;
+			case 'R': sprite.setTextureRect(IntRect(90,      650,  SizeX, SizeY - 12)); break;		
 		}
 	}	
 		

@@ -39,6 +39,7 @@ public:
 public:
 	
 	float Speed;
+	float SizeJump;
 	
 	int FloorLevel;
 	
