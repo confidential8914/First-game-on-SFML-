@@ -5,12 +5,22 @@
 using namespace sf;
 using namespace std;
 
-const int SizeWindowX = 640;
+const int SizeWindowX = 900;
 const int SizeWindowY = 640; 
 
+#include "Map.h"
 #include "Player.h"
 
 PLAYER Player;
+MAP    Map;
+
+RenderWindow window(VideoMode(SizeWindowX, SizeWindowY), "First game");
+
+void INIT()
+{
+
+	
+}
 
 void Update(float time)
 {
@@ -19,8 +29,8 @@ void Update(float time)
 
 int main()
 {
-	RenderWindow window(VideoMode(SizeWindowX, SizeWindowY), "First game");
-	
+	INIT();
+		
 	float NumberFrame;	
 	
 	Clock clock;
@@ -50,8 +60,6 @@ int main()
 		window.display();
 		
 	}
-	
-	
 	
     return 0;
 }

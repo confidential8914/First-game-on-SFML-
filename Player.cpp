@@ -9,7 +9,7 @@ using namespace std;
 
 #include "Player.h"
 
-const int SizeWindowX = 640;
+const int SizeWindowX = 900;
 const int SizeWindowY = 640; 
 
 /*
@@ -25,15 +25,31 @@ PLAYER::PLAYER()
     SizeX = 75; 
 	SizeY = 85;
 	
+	FloorLevel = (SizeWindowY - 140);
+	
 	TPlayer.loadFromFile("Spritse\\sprite.png");
 	sprite.setTexture(TPlayer);
-	sprite.setTextureRect(IntRect(85, 10, SizeX, SizeY));
+	sprite.setTextureRect(IntRect(90, 650, SizeX, SizeY - 10));
 	sprite.setPosition(100, SizeWindowY - 100);
 }
 	
-PLAYER::~PLAYER()
-{}
+PLAYER::~PLAYER(){}
+/*
+void PLAYER::Attack(string Type)
+{	
 
+	NumberAttackFrame += 0.006 * time;
+			
+	if(NumberAttackFrame > AFrame)
+		NumberAttackFrame -= AFrame;	
+			
+	switch(OldVector)
+	{
+		case 'R': sprite.setTextureRect(IntRect(5 + (160 * int(NumberAttackFrame)),      330,  SizeX, SizeY - 10)); break;
+		case 'L': sprite.setTextureRect(IntRect(5 + (160 * int(NumberAttackFrame) + 80), 330, -SizeX, SizeY - 10)); break;		
+	}
+}
+*/
 void PLAYER::GravityAndMotion()
 {
 	rect.left += x * time;
@@ -45,9 +61,9 @@ void PLAYER::GravityAndMotion()
 	
 	onGround = false;	
 	
-	if(rect.top > (SizeWindowY - 140))
+	if(rect.top > FloorLevel)
 	{
-		rect.top = (SizeWindowY - 140);
+		rect.top = FloorLevel;
 		y = 0;
 		onGround = true;
 	}
@@ -85,13 +101,22 @@ void PLAYER::Update(float time)
 void PLAYER::Control()
 {
 	//////////////// Control ///////////////////
-		
+	/*
+	if(Keyboard::isKeyPressed(Keyboard::K))
+		TypeAttack = "Kick";
+	
+	if(Keyboard::isKeyPressed(Keyboard::S))
+		TypeAttack = "Shoot";
+			
+	if(Keyboard::isKeyPressed(Keyboard::Space))
+		Attack(TypeAttack);
+	*/
+			
 	if(Keyboard::isKeyPressed(Keyboard::Left))
 	{   
 		OldVector = 'L';
 		x = -0.1;
 	}
-	
 	
 	if(Keyboard::isKeyPressed(Keyboard::Right))
 	{	
@@ -105,8 +130,8 @@ void PLAYER::Control()
 			y =-0.4;
 			onGround = false;
 		}		
-
-	if(!Keyboard::isKeyPressed(Keyboard::Left) && !Keyboard::isKeyPressed(Keyboard::Right) && !Keyboard::isKeyPressed(Keyboard::Up))
+	
+	if(!Keyboard::isKeyPressed(Keyboard::Left) && !Keyboard::isKeyPressed(Keyboard::Right) && !Keyboard::isKeyPressed(Keyboard::Up) && !Keyboard::isKeyPressed(Keyboard::Space))
 	{	
 		x = 0;
 		

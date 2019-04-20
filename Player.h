@@ -5,6 +5,7 @@ private:
 	
 	#define VFrame 7
 	#define DFrame 7
+	#define AFrame 3
 	
 	int SizeX;
 	int SizeY;
@@ -19,12 +20,15 @@ private:
 	
 	float NumberFrame;	
 	float NumberDownFrame;
+	float NumberAttackFrame;
 	
 	float AOG;
 										
 	char OldVector;
 	
 	bool onGround;
+	
+	string TypeAttack;
 	
 public:
 	
@@ -36,6 +40,8 @@ public:
 	
 	float Speed;
 	
+	int FloorLevel;
+	
 	Sprite sprite;
 	
 private:
@@ -43,6 +49,8 @@ private:
 	void GravityAndMotion();
 	
 public:
+	
+	void Attack(string Type);
 	
 	void Update(float time);
 	
