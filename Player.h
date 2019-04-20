@@ -9,6 +9,10 @@ private:
 	int SizeX;
 	int SizeY;
 	
+	float x;
+	float y;
+	
+	FloatRect rect;
 	Texture TPlayer;
 
 	float time;
@@ -16,6 +20,8 @@ private:
 	float NumberFrame;	
 	float NumberDownFrame;
 	
+	float AOG;
+										
 	char OldVector;
 	
 	bool onGround;
@@ -34,7 +40,7 @@ public:
 	
 private:
 	
-	void Gravity();
+	void GravityAndMotion();
 	
 public:
 	

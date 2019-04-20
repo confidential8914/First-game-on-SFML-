@@ -32,7 +32,7 @@ int main()
 		
 		time = time / 800;
 		time *= Player.Speed;
-		
+
 		Event event;
 		
 		while(window.pollEvent(event))

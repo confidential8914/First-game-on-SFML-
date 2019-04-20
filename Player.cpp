@@ -1,6 +1,8 @@
 #include <windows.h>
 #include <SFML/Graphics.hpp>
 #include <iostream>
+#include <stdio.h>
+#include <conio.h>
 
 using namespace sf;
 using namespace std;
@@ -10,16 +12,16 @@ using namespace std;
 const int SizeWindowX = 640;
 const int SizeWindowY = 640; 
 
-void PrintToConsole(char *command)
-{
-	cout << "Player: ";
-	
-}
+/*
+HANDLE hConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
+SetConsoleTextAttribute(hConsoleHandle, 10);
+*/
 
 PLAYER::PLAYER()
 {	
 	Speed = 1.5;
-	
+	AOG = 0.0005;
+
     SizeX = 75; 
 	SizeY = 85;
 	
@@ -32,14 +34,52 @@ PLAYER::PLAYER()
 PLAYER::~PLAYER()
 {}
 
-void Gravity()
+void PLAYER::GravityAndMotion()
 {
+	rect.left += x * time;
+	
+	if(!onGround)
+		y += AOG * time;
+	
+	rect.top += y * time;
+	
+	onGround = false;	
+	
+	if(rect.top > (SizeWindowY - 140))
+	{
+		rect.top = (SizeWindowY - 140);
+		y = 0;
+		onGround = true;
+	}
+		if(!Keyboard::isKeyPressed(Keyboard::Down))
+		{
+			NumberFrame += 0.006 * time;
+		
+			if(NumberFrame > VFrame)
+				NumberFrame -= VFrame;	
+				
+			if(x > 0) sprite.setTextureRect(IntRect(85 + (80 * int(NumberFrame)),      10,  SizeX, SizeY));	
+			if(x < 0) sprite.setTextureRect(IntRect(85 + (80 * int(NumberFrame) + 80), 10, -SizeX, SizeY));
+		}
+		else
+		{
+			NumberDownFrame += 0.006 * time;
+		
+	    	if(NumberDownFrame > VFrame)
+				NumberDownFrame -= VFrame;	
+				
+			if(x > 0) sprite.setTextureRect(IntRect(415 + (80 * int(NumberDownFrame)),      95,  SizeX, SizeY - 30));	
+			if(x < 0) sprite.setTextureRect(IntRect(415 + (80 * int(NumberDownFrame)) + 80, 95, -SizeX, SizeY - 30));
+		}
 
+	sprite.setPosition(rect.left, rect.top);
+	
 }
 
 void PLAYER::Update(float time)
 {
 	this->time = time;
+	PLAYER::GravityAndMotion();
 }
 	
 void PLAYER::Control()
@@ -47,65 +87,29 @@ void PLAYER::Control()
 	//////////////// Control ///////////////////
 		
 	if(Keyboard::isKeyPressed(Keyboard::Left))
-	{
-		sprite.move(-0.15 * time, 0);	
-		
-		if(!Keyboard::isKeyPressed(Keyboard::Down))
-		{
-			NumberFrame += 0.006 * time;
-		
-	    	if(NumberFrame > VFrame)
-				NumberFrame -= VFrame;	
-		
-			sprite.setTextureRect(IntRect(85 + (80 * int(NumberFrame)) + 80, 10, -SizeX, SizeY));
-		}
-		else
-		{
-		
-			NumberDownFrame += 0.006 * time;
-		
-	    	if(NumberDownFrame > VFrame)
-				NumberDownFrame -= VFrame;	
-		
-			sprite.setTextureRect(IntRect(415 + (80 * int(NumberDownFrame)) + 80, 95, -SizeX - 0, SizeY - 30));
-		}
-		
+	{   
 		OldVector = 'L';
+		x = -0.1;
 	}
 	
+	
 	if(Keyboard::isKeyPressed(Keyboard::Right))
-	{
-		sprite.move(0.15 * time, 0);
-		
-		if(!Keyboard::isKeyPressed(Keyboard::Down))
-		{	
-			NumberFrame += 0.006 * time;
-		
-	    	if(NumberFrame > VFrame)
-				NumberFrame -= VFrame;	
-		
-			sprite.setTextureRect(IntRect(85 + (80 * int(NumberFrame)), 10, SizeX, SizeY));	
-		}
-		else
-		{
-			NumberDownFrame += 0.006 * time;
-		
-	    	if(NumberDownFrame > VFrame)
-				NumberDownFrame -= VFrame;	
-		
-			sprite.setTextureRect(IntRect(415 + (80 * int(NumberDownFrame)), 95, SizeX - 0, SizeY - 30));
-		}
-		
+	{	
+		x = 0.1;
 		OldVector = 'R';
 	}
 		
 	if(Keyboard::isKeyPressed(Keyboard::Up))
-	{
-		sprite.move(0, -0.1);	
-	}
+		if(onGround)
+		{
+			y =-0.4;
+			onGround = false;
+		}		
 
 	if(!Keyboard::isKeyPressed(Keyboard::Left) && !Keyboard::isKeyPressed(Keyboard::Right) && !Keyboard::isKeyPressed(Keyboard::Up))
 	{	
+		x = 0;
+		
 		switch(OldVector)
 		{
 			case 'L': sprite.setTextureRect(IntRect(90 + 80, 650, -SizeX, SizeY - 10)); break;
