@@ -9,8 +9,8 @@ using namespace std;
 
 #include "Player.h"
 
-const int SizeWindowX = 900;
-const int SizeWindowY = 640; 
+const int SizeWindowX = 1200;
+const int SizeWindowY = 832; 
 
 /*
 HANDLE hConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
