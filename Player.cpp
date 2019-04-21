@@ -20,13 +20,14 @@ SetConsoleTextAttribute(hConsoleHandle, 10);
 PLAYER::PLAYER()
 {	
 	Speed    = 1.5;
-	SizeJump = 0.5;
+	SizeJump = 0.4;
 	
 	AOG = 0.0005;
 
     SizeX = 75; 
 	SizeY = 85;
 	
+	rect = FloatRect(7 * 32, 9 * 32, SizeX, SizeY - 23);
 	FloorLevel = (SizeWindowY - 140);
 	
 	TPlayer.loadFromFile("Spritse\\sprite.png");
@@ -82,12 +83,21 @@ void PLAYER::GravityAndMotion()
 		else
 		{
 			NumberDownFrame += 0.006 * time;
-		
+			
 	    	if(NumberDownFrame > VFrame)
 				NumberDownFrame -= VFrame;	
 				
-			if(x > 0) sprite.setTextureRect(IntRect(415 + (80 * int(NumberDownFrame)),      95,  SizeX, SizeY - 30));	
-			if(x < 0) sprite.setTextureRect(IntRect(415 + (80 * int(NumberDownFrame)) + 80, 95, -SizeX, SizeY - 30));
+			if(x > 0) 
+			{
+				rect.left += 0.125;
+				sprite.setTextureRect(IntRect(415 + (80 * int(NumberDownFrame)),      95,  SizeX, SizeY - 30));	
+			}
+			
+			if(x < 0) 
+			{
+				rect.left -= 0.125;
+				sprite.setTextureRect(IntRect(415 + (80 * int(NumberDownFrame)) + 80, 95, -SizeX, SizeY - 30));
+			}
 		}
 
 	sprite.setPosition(rect.left, rect.top);

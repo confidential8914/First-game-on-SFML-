@@ -10,10 +10,6 @@ private:
 	int SizeX;
 	int SizeY;
 	
-	float x;
-	float y;
-	
-	FloatRect rect;
 	Texture TPlayer;
 
 	float time;
@@ -26,8 +22,6 @@ private:
 										
 	char OldVector;
 	
-	bool onGround;
-	
 	string TypeAttack;
 	
 public:
@@ -37,6 +31,13 @@ public:
 	~PLAYER();
 
 public:
+	
+	float x;
+	float y;
+	
+	bool onGround;
+	
+	FloatRect rect;
 	
 	float Speed;
 	float SizeJump;
