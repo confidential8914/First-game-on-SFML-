@@ -7,9 +7,6 @@ private:
 	#define DFrame 7
 	#define AFrame 3
 	
-	int SizeX;
-	int SizeY;
-	
 	Texture TPlayer;
 
 	float time;
@@ -32,6 +29,9 @@ public:
 
 public:
 	
+	int SizeX;
+	int SizeY;
+	
 	float x;
 	float y;
 	
@@ -49,6 +49,7 @@ public:
 private:
 	
 	void GravityAndMotion();
+	void Boundaries();
 	
 public:
 	

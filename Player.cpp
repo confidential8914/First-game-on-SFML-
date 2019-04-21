@@ -28,7 +28,7 @@ PLAYER::PLAYER()
 	SizeY = 85;
 	
 	rect = FloatRect(7 * 32, 9 * 32, SizeX, SizeY - 23);
-	FloorLevel = (SizeWindowY - 140);
+	FloorLevel = (SizeWindowY - 128);
 	
 	TPlayer.loadFromFile("Spritse\\sprite.png");
 	sprite.setTexture(TPlayer);
@@ -53,6 +53,18 @@ void PLAYER::Attack(string Type)
 	}
 }
 */
+
+void PLAYER::Boundaries()
+{
+	if(rect.left <= 32 - 10)
+		rect.left = 32 - 10;
+	
+	if(rect.top <= 32)
+	{
+		rect.top++;	
+	}
+}
+
 void PLAYER::GravityAndMotion()
 {
 	rect.left += x * time;
@@ -77,8 +89,8 @@ void PLAYER::GravityAndMotion()
 			if(NumberFrame > VFrame)
 				NumberFrame -= VFrame;	
 				
-			if(x > 0) sprite.setTextureRect(IntRect(82 + (80 * int(NumberFrame)),      7,  SizeX, SizeY));	
-			if(x < 0) sprite.setTextureRect(IntRect(82 + (80 * int(NumberFrame) + 80), 7, -SizeX, SizeY));
+			if(x > 0) sprite.setTextureRect(IntRect(82 + (80 * int(NumberFrame)),      9,  SizeX, SizeY));	
+			if(x < 0) sprite.setTextureRect(IntRect(82 + (80 * int(NumberFrame) + 80), 9, -SizeX, SizeY));
 		}
 		else
 		{
@@ -108,6 +120,7 @@ void PLAYER::Update(float time)
 {
 	this->time = time;
 	PLAYER::GravityAndMotion();
+	PLAYER::Boundaries();
 }
 	
 void PLAYER::Control()

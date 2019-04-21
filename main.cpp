@@ -21,65 +21,75 @@ PLAYER Player;
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////
 
-const int H = 18;
+const int H = 21;
 const int W = 100;
+
+
 
 String Map[H] = {
 "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
-"W                                																    W",
-"W   		 																                        W",
-"W            EEEE     E      E                 													W",
-"W           E         E      E          															W",
-"W      	 E 		 EEEEE  EEEEE	 															    W",
-"W           E         E      E           															W",
-"W            EEEE     E      E            															W",
-"W        																							W",
-"W                                 																	W",
-"W             																						W",
-"W        			            																    W",
-"W             		     													                        W",
-"W        							   																W",
-"W      						      																W",
-"W   PPP   																						    W",
-"W      																						    W",
+"W000000I0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000W",
+"W000000I0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000W",
+"W000000I0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000W",
+"W000000I0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000W",
+"W000000I0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000W",
+"W000000I0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000W",
+"W000000I0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000W",
+"W000000I0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000W",
+"W000000I0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000W",
+"W000000I0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000W",
+"W000000I0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000W",
+"W000000I0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000W",
+"W000000I0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000W",
+"W000000I0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000W",
+"W000000I00000PPPPPPPPP00000000000000000000000000000000000000000000000000000000000000000000000000000W",
+"W000000I0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000W",
+"W000000I0000000000000000000000000000000000000000000000000000000000000000000000000000000000000000000W",
+"WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
 "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
 }; 
 
-void DrawS()
-{	
-	RectangleShape rectangle( Vector2f(32, 32));
-	
-	for (int i=0; i<H; i++)
-		for (int j=0; j<W ; j++)
-		{	
-			if (Map[i][j] == 'W') rectangle.setFillColor(Color::Red);
-			
-			if (Map[i][j] == 'P') rectangle.setFillColor(Color::White);
-		    
-		    if (Map[i][j] == 'E') rectangle.setFillColor(Color::Green);
-		    
-			if (Map[i][j] == '0' || Map[i][j] == ' ') rectangle.setFillColor(Color::Black);
-		    
-		    rectangle.setPosition(j * 32 - offsetX, i * 32 - offsetY) ; 
-		    window.draw(rectangle);
-	    }
-}
 
 void DrawMap()
 {	
+	
 	Texture tileSet;
-	tileSet.loadFromFile("Tail\\First.png");
+	tileSet.loadFromFile("Tile\\stone.png");
+	Sprite stone(tileSet);
+	
+	for(int counterA = 0; counterA < H; counterA++)
+		for (int counterB = 0; counterB < W; counterB++)
+			if (Map[counterA][counterB] == 'W')  
+			{
+				stone.setTextureRect(IntRect(0, 0, 32, 32));
+				stone.setPosition(counterB * 32 - offsetX, counterA * 32 - offsetY); 
+				window.draw(stone);
+				
+				if ((Map[counterA][counterB] == ' ') || (Map[counterA][counterB] == '0')) continue;
+			}
+		
+	tileSet.loadFromFile("Tile\\Main.png");
 	Sprite tile(tileSet);
 	
 	for(int counterA = 0; counterA < H; counterA++)
 		for (int counterB = 0; counterB < W; counterB++)
 		{ 
-			if (Map[counterA][counterB] == 'B')  tile.setTextureRect(IntRect(162, 128, 223, 190));
-
+			if (Map[counterA][counterB] == 'I')  
+			{
+				tile.setTextureRect(IntRect(71, 893, 32, 32));
+				tile.setPosition(counterB * 32 - offsetX, counterA * 32 - offsetY); 
+				window.draw(tile);
+			}
+			
+			if (Map[counterA][counterB] == 'P')  
+			{
+				tile.setTextureRect(IntRect(99, 864, 32, 32));
+				tile.setPosition(counterB * 32 - offsetX, counterA * 32 - offsetY); 
+				window.draw(tile);
+			}
+			
+					
 			if ((Map[counterA][counterB] == ' ') || (Map[counterA][counterB] == '0')) continue;
-
-  			tile.setPosition(counterB * 32 - offsetX, counterA * 32 - offsetY); 
-			window.draw(tile);
 		}
 		
 }
@@ -91,9 +101,9 @@ void Collision(bool dir)
 		{ 
 	  		if (Map[i][j]=='P') 
 		   	{ 
-	        	if ((Player.x > 0) && (dir == false)) Player.rect.left =  j * 32 -  Player.rect.width; 
+	        	if ((Player.x > 0) && (dir == false)) Player.rect.left =  j * 32 - Player.rect.width; 
 		    	
-				if ((Player.x < 0) && (dir == false)) Player.rect.left =  j * 32/* + 32*/;
+				if ((Player.x < 0) && (dir == false)) Player.rect.left =  j * 32 + 32;
 				
 				if ((Player.y > 0) && (dir == true)) 
 				{ 
@@ -104,15 +114,13 @@ void Collision(bool dir)
 				
 				if ((Player.y < 0) && (dir == true))  
 				{ 
-					Player.rect.top = i * 32/* + 32*/;   
-					Player.y=0;
+					Player.rect.top = i * 32 + 32;   
+					Player.y = 0;
 				}
 		    }	
-		 
 		 	
 			if(Map[i][j] == 'E') 
 				Map[i][j] = ' ';
-	        	
     	}
    
 }
@@ -160,7 +168,7 @@ int main()
 		Update(time);
 		
 		window.clear(Color::Black);
-		DrawS();
+		DrawMap();
 		window.draw(Player.sprite);
 		window.display();
 		
