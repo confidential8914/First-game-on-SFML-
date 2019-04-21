@@ -29,6 +29,9 @@ public:
 
 public:
 	
+	float offsetX;
+	float offsetY;
+	
 	int SizeX;
 	int SizeY;
 	
@@ -55,7 +58,7 @@ public:
 	
 	void Attack(string Type);
 	
-	void Update(float time);
+	void Update(float time, float offsetX, float offsetY);
 	
 	void Control();
 };

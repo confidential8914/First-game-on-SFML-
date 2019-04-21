@@ -27,9 +27,9 @@ PLAYER::PLAYER()
     SizeX = 75; 
 	SizeY = 85;
 	
-	rect = FloatRect(7 * 32, 9 * 32, SizeX, SizeY - 23);
 	FloorLevel = (SizeWindowY - 128);
-	
+	rect = FloatRect(200, FloorLevel - 64, SizeX, SizeY - 23);
+
 	TPlayer.loadFromFile("Spritse\\sprite.png");
 	sprite.setTexture(TPlayer);
 	sprite.setTextureRect(IntRect(90, 650, SizeX, SizeY - 12));
@@ -37,22 +37,7 @@ PLAYER::PLAYER()
 }
 	
 PLAYER::~PLAYER(){}
-/*
-void PLAYER::Attack(string Type)
-{	
 
-	NumberAttackFrame += 0.006 * time;
-			
-	if(NumberAttackFrame > AFrame)
-		NumberAttackFrame -= AFrame;	
-			
-	switch(OldVector)
-	{
-		case 'R': sprite.setTextureRect(IntRect(5 + (160 * int(NumberAttackFrame)),      330,  SizeX, SizeY - 10)); break;
-		case 'L': sprite.setTextureRect(IntRect(5 + (160 * int(NumberAttackFrame) + 80), 330, -SizeX, SizeY - 10)); break;		
-	}
-}
-*/
 
 void PLAYER::Boundaries()
 {
@@ -112,13 +97,17 @@ void PLAYER::GravityAndMotion()
 			}
 		}
 
-	sprite.setPosition(rect.left, rect.top);
+	sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
 	
 }
 
-void PLAYER::Update(float time)
+void PLAYER::Update(float time, float offsetX, float offsetY)
 {
 	this->time = time;
+	
+	this->offsetX = offsetX;
+	this->offsetY = offsetY;
+	
 	PLAYER::GravityAndMotion();
 	PLAYER::Boundaries();
 }
@@ -126,21 +115,12 @@ void PLAYER::Update(float time)
 void PLAYER::Control()
 {
 	//////////////// Control ///////////////////
-	/*
-	if(Keyboard::isKeyPressed(Keyboard::K))
-		TypeAttack = "Kick";
-	
-	if(Keyboard::isKeyPressed(Keyboard::S))
-		TypeAttack = "Shoot";
-			
-	if(Keyboard::isKeyPressed(Keyboard::Space))
-		Attack(TypeAttack);
-	*/
 			
 	if(Keyboard::isKeyPressed(Keyboard::Left))
 	{   
-		OldVector = 'L';
 		x = -0.1;
+		OldVector = 'L';
+		
 	}
 	
 	if(Keyboard::isKeyPressed(Keyboard::Right))
