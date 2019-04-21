@@ -29,6 +29,13 @@ public:
 
 public:
 	
+	Clock Clock; 
+	
+	short int VH; 
+	
+	int   health;
+	float charges;
+	
 	float offsetX;
 	float offsetY;
 	
@@ -45,15 +52,13 @@ public:
 	float Speed;
 	float SizeJump;
 	
-	int FloorLevel;
-	
 	Sprite sprite;
 	
 private:
 	
 	void GravityAndMotion();
-	void Boundaries();
-	
+	void Charges(); 
+		
 public:
 	
 	void Attack(string Type);

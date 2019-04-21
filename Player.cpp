@@ -9,8 +9,12 @@ using namespace std;
 
 #include "Player.h"
 
+const short int W = 100;
+
 const int SizeWindowX = 1200;
 const int SizeWindowY = 832; 
+
+const short int DischargeTimeS = 60;
 
 /*
 HANDLE hConsoleHandle = GetStdHandle(STD_OUTPUT_HANDLE);
@@ -22,13 +26,17 @@ PLAYER::PLAYER()
 	Speed    = 1.5;
 	SizeJump = 0.4;
 	
+	VH = 3;
+	
 	AOG = 0.0005;
 
     SizeX = 75; 
 	SizeY = 85;
 	
-	FloorLevel = (SizeWindowY - 128);
-	rect = FloatRect(200, FloorLevel - 64, SizeX, SizeY - 23);
+	health = VH;
+	charges = 100;
+	
+	rect = FloatRect(200, SizeWindowY - 192, SizeX, SizeY - 23);
 
 	TPlayer.loadFromFile("Spritse\\sprite.png");
 	sprite.setTexture(TPlayer);
@@ -37,18 +45,6 @@ PLAYER::PLAYER()
 }
 	
 PLAYER::~PLAYER(){}
-
-
-void PLAYER::Boundaries()
-{
-	if(rect.left <= 32 - 10)
-		rect.left = 32 - 10;
-	
-	if(rect.top <= 32)
-	{
-		rect.top++;	
-	}
-}
 
 void PLAYER::GravityAndMotion()
 {
@@ -61,55 +57,66 @@ void PLAYER::GravityAndMotion()
 	
 	onGround = false;	
 	
-	if(rect.top > FloorLevel)
+	if(!Keyboard::isKeyPressed(Keyboard::Down))
 	{
-		rect.top = FloorLevel;
-		y = 0;
-		onGround = true;
+		NumberFrame += 0.006 * time;
+	
+		if(NumberFrame > VFrame)
+			NumberFrame -= VFrame;	
+			
+		if(x > 0) sprite.setTextureRect(IntRect(82 + (80 * int(NumberFrame)),      9,  SizeX, SizeY));	
+		if(x < 0) sprite.setTextureRect(IntRect(82 + (80 * int(NumberFrame) + 80), 9, -SizeX, SizeY));
 	}
-		if(!Keyboard::isKeyPressed(Keyboard::Down))
-		{
-			NumberFrame += 0.006 * time;
+	else
+	{
+		NumberDownFrame += 0.006 * time;
 		
-			if(NumberFrame > VFrame)
-				NumberFrame -= VFrame;	
-				
-			if(x > 0) sprite.setTextureRect(IntRect(82 + (80 * int(NumberFrame)),      9,  SizeX, SizeY));	
-			if(x < 0) sprite.setTextureRect(IntRect(82 + (80 * int(NumberFrame) + 80), 9, -SizeX, SizeY));
-		}
-		else
+	   	if(NumberDownFrame > VFrame)
+			NumberDownFrame -= VFrame;	
+			
+		if(x > 0) 
 		{
-			NumberDownFrame += 0.006 * time;
-			
-	    	if(NumberDownFrame > VFrame)
-				NumberDownFrame -= VFrame;	
-				
-			if(x > 0) 
-			{
-				rect.left += 0.125;
-				sprite.setTextureRect(IntRect(415 + (80 * int(NumberDownFrame)),      95,  SizeX, SizeY - 30));	
-			}
-			
-			if(x < 0) 
-			{
-				rect.left -= 0.125;
-				sprite.setTextureRect(IntRect(415 + (80 * int(NumberDownFrame)) + 80, 95, -SizeX, SizeY - 30));
-			}
+			rect.left += 0.125;
+			sprite.setTextureRect(IntRect(415 + (80 * int(NumberDownFrame)),      95,  SizeX, SizeY - 30));	
 		}
+		
+		if(x < 0) 
+		{
+			rect.left -= 0.125;
+			sprite.setTextureRect(IntRect(415 + (80 * int(NumberDownFrame)) + 80, 95, -SizeX, SizeY - 30));
+		}
+	}
 
 	sprite.setPosition(rect.left - offsetX, rect.top - offsetY);
 	
 }
 
-void PLAYER::Update(float time, float offsetX, float offsetY)
+void PLAYER::Charges()
 {
+	float Time = Clock.getElapsedTime().asSeconds();
+	
+	if(Time >= DischargeTimeS && charges > 0)
+	{
+		if(charges < 10)
+			charges = 0;
+		else
+			charges -= 10;
+		
+		Clock.restart();	
+		cout << "Charges: " << charges << endl;
+	}	
+}
+ 
+
+void PLAYER::Update(float time, float offsetX, float offsetY)
+{		
 	this->time = time;
 	
 	this->offsetX = offsetX;
 	this->offsetY = offsetY;
 	
 	PLAYER::GravityAndMotion();
-	PLAYER::Boundaries();
+	PLAYER::Charges();
 }
 	
 void PLAYER::Control()
@@ -119,8 +126,7 @@ void PLAYER::Control()
 	if(Keyboard::isKeyPressed(Keyboard::Left))
 	{   
 		x = -0.1;
-		OldVector = 'L';
-		
+		OldVector = 'L';	
 	}
 	
 	if(Keyboard::isKeyPressed(Keyboard::Right))
