@@ -33,6 +33,7 @@ public:
 	
 	short int VH; 
 	
+	int   coins;
 	int   health;
 	float charges;
 	

@@ -36,7 +36,7 @@ PLAYER::PLAYER()
 	health = VH;
 	charges = 100;
 	
-	rect = FloatRect(200, SizeWindowY - 192, SizeX, SizeY - 23);
+	rect = FloatRect(200, SizeWindowY - 192, SizeX - 25, SizeY - 22);
 
 	TPlayer.loadFromFile("Spritse\\sprite.png");
 	sprite.setTexture(TPlayer);

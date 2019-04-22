@@ -4,8 +4,8 @@
 CPP      = g++.exe
 CC       = gcc.exe
 WINDRES  = windres.exe
-OBJ      = main.o Player.o Map.o
-LINKOBJ  = main.o Player.o Map.o
+OBJ      = main.o Player.o
+LINKOBJ  = main.o Player.o
 LIBS     = -L"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/lib32" -L"D:/Dev-Cpp/MinGW64/SFML-2.2/lib" -static-libgcc -lsfml-graphics -lsfml-window -lsfml-audio -lsfml-system -m32
 INCS     = -I"D:/Dev-Cpp/MinGW64/include" -I"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include"
 CXXINCS  = -I"D:/Dev-Cpp/MinGW64/include" -I"D:/Dev-Cpp/MinGW64/x86_64-w64-mingw32/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include" -I"D:/Dev-Cpp/MinGW64/lib/gcc/x86_64-w64-mingw32/4.9.2/include/c++" -I"D:/Dev-Cpp/MinGW64/SFML-2.2/include"
@@ -29,6 +29,3 @@ main.o: main.cpp
 
 Player.o: Player.cpp
 	$(CPP) -c Player.cpp -o Player.o $(CXXFLAGS)
-
-Map.o: Map.cpp
-	$(CPP) -c Map.cpp -o Map.o $(CXXFLAGS)
