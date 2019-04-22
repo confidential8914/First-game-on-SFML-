@@ -37,6 +37,8 @@ public:
 	int   health;
 	float charges;
 	
+	float HP;
+	
 	float offsetX;
 	float offsetY;
 	

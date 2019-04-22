@@ -27,6 +27,7 @@ PLAYER::PLAYER()
 	SizeJump = 0.4;
 	
 	VH = 3;
+	HP = 100;
 	
 	AOG = 0.0005;
 
@@ -36,7 +37,7 @@ PLAYER::PLAYER()
 	health = VH;
 	charges = 100;
 	
-	rect = FloatRect(200, SizeWindowY - 192, SizeX - 25, SizeY - 22);
+	rect = FloatRect(200, SizeWindowY - 192, SizeX - 25, SizeY - 20);
 
 	TPlayer.loadFromFile("Spritse\\sprite.png");
 	sprite.setTexture(TPlayer);
@@ -117,6 +118,7 @@ void PLAYER::Update(float time, float offsetX, float offsetY)
 	
 	PLAYER::GravityAndMotion();
 	PLAYER::Charges();
+	
 }
 	
 void PLAYER::Control()
