@@ -73,17 +73,17 @@ String Map[H] = {
 "WffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffW",
 "WffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffW",
 "WffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffW",
-"WWWWWWWWWWWWWWWFFWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWFFWWWWWWWWWWWW",
-"WffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffW",
-"WffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffW",
-"WffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffffW",
-"Wfffffff6666666666666666666666666666666666666666WWFFFFWWW66666666666666666666666666666666666666ffff5fffffffffffW",
-"Wffffff65555555555555555555555555555555555555555FFFFFFFFF555555555555555555555555555555555555556fffffffffffffffW",
-"Wfffff6bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb6ffffffffffffffW",
-"Wffff66bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb56fffffffffffffW",
-"Wffffbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb56fffffffff5fffW",
-"WffffbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbfffffffffffffffW",
-"WffffbbbbMbMbMbMbMbMbMbMbMbMbMbMbMbMbMbbMbMbbbbWLLLLLLLLWbHbbHbbbHbbbbHbbbHbbbbHbbbHbbbbbbbbbbbffffffffffffffffW",
+"WWWWWWWWWWWWWWWFFWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWFFWWWWWWWWWWWWWWWW",
+"WbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbW",
+"WbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbW",
+"WbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbW",
+"Wbbbbbbb666666666666666666666666666666666666666WWWFFFFWWW66666666666666666666666666666666666666bbbbbbbbbbbbbbbbW",
+"Wbbbbbb6555555555555555555555555555555555555555WFFFFFFFFW555555555555555555555555555555555555556bbbbbbbbbbbbbbbW",
+"Wbbbbb65bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbWbbbbbbbbWbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb56bbbbbbbbbbbbbbW",
+"W6bbb66bbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbWbbbbbbbbWbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbb56bbb6666666666W",
+"WbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbWbbbbbbbbWbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbW",
+"WbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbWbbbbbbbbWbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbW",
+"WbbbbbbbbMbMbMbMbMbMbMbMbMbMbMbMbMbMbMbMbMbbbbbWLLLLLLLLWbHbbHbbHbbHbbHbbHbbHbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbbW",
 "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW",
 "WWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWWW"
 };
@@ -234,7 +234,7 @@ void Collision(bool dir)
 		    }	
 		 	
 			if(Map[i][j] == 'F') 
-				Map[i][j] = 'f';
+				Map[i][j] = ' ';
 			
 			if(Map[i][j] == 'H') 
 				Objects.Heart(i, j);
@@ -250,7 +250,6 @@ void Collision(bool dir)
 }
 
 //////////////////////////////////////////////////////////////////////////////////////////////////////*/
-
 
 void Update(float time)
 {	
